@@ -3,7 +3,7 @@ import { ArrowRight, CalendarDays, Dumbbell, Plus, Timer } from "lucide-react";
 import { AppShell } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({ meta: [
     { title: "Home — BeFit Workout Tracker" },
     { name: "description", content: "Stay consistent and keep track of every workout with BeFit." },

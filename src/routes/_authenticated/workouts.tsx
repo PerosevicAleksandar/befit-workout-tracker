@@ -4,7 +4,7 @@ import { AppShell, PageHeader } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 import { formatWorkoutDate, workouts } from "@/data/workouts";
 
-export const Route = createFileRoute("/workouts")({
+export const Route = createFileRoute("/_authenticated/workouts")({
   head: () => ({ meta: [
     { title: "My Workouts — BeFit" }, { name: "description", content: "Review your recent BeFit workout history." },
     { property: "og:title", content: "My Workouts — BeFit" }, { property: "og:description", content: "Review your recent BeFit workout history." },
