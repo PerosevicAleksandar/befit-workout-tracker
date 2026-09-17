@@ -3,7 +3,7 @@ import { Save } from "lucide-react";
 import { AppShell, Field, PageHeader } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/add-workout")({
+export const Route = createFileRoute("/_authenticated/add-workout")({
   head: () => ({ meta: [
     { title: "Add Workout — BeFit" }, { name: "description", content: "Record a workout in BeFit." },
     { property: "og:title", content: "Add Workout — BeFit" }, { property: "og:description", content: "Record a workout in BeFit." },
