@@ -7,10 +7,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { authErrorMessage, ensureProfile } from "@/lib/auth";
 
 export const Route = createFileRoute("/login")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    registered:
-      search["registered"] === true || search["registered"] === "true" ? true : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { registered?: boolean } => {
+    const registered = search["registered"] === true || search["registered"] === "true";
+    return registered ? { registered: true } : {};
+  },
   head: () => ({ meta: [
     { title: "Log In — BeFit" }, { name: "description", content: "Log in to your BeFit workout tracker." },
     { property: "og:title", content: "Log In — BeFit" }, { property: "og:description", content: "Log in to your BeFit workout tracker." },
