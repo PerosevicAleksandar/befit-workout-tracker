@@ -63,7 +63,7 @@ function RegisterPage() {
     <AuthShell
       title="Create account"
       subtitle="Start building a training record you can be proud of."
-      footer={<>Already have an account? <Link to="/login" className="font-bold text-primary hover:underline">Log In</Link></>}
+      footer={<>Already have an account? <Link to="/login" search={{}} className="font-bold text-primary hover:underline">Log In</Link></>}
     >
       <form className="grid gap-5" onSubmit={handleSubmit}>
         {error && (

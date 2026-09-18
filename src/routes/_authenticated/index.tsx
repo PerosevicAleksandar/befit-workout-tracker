@@ -27,6 +27,7 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 function HomePage() {
+  const { username } = Route.useLoaderData();
   return (
     <AppShell>
       <div className="mx-auto max-w-6xl px-5 py-10 sm:py-14 lg:px-8">
