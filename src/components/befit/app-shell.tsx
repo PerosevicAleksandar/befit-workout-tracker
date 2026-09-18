@@ -62,7 +62,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} title={dark ? "Light mode" : "Dark mode"}>
               {dark ? <Sun /> : <Moon />}
             </Button>
-            <Button variant="ghost" asChild><Link to="/login"><LogOut /> Logout</Link></Button>
+            <Button variant="ghost" onClick={handleLogout} disabled={loggingOut}><LogOut /> {loggingOut ? "Logging out..." : "Logout"}</Button>
           </div>
 
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label="Toggle navigation">
@@ -80,7 +80,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               ))}
               <div className="my-2 border-t border-border" />
               <Button variant="ghost" className="justify-start" onClick={toggleTheme}>{dark ? <Sun /> : <Moon />} {dark ? "Light Mode" : "Dark Mode"}</Button>
-              <Button variant="ghost" className="justify-start" asChild><Link to="/login" onClick={() => setMenuOpen(false)}><LogOut /> Logout</Link></Button>
+              <Button variant="ghost" className="justify-start" onClick={() => { setMenuOpen(false); void handleLogout(); }} disabled={loggingOut}><LogOut /> {loggingOut ? "Logging out..." : "Logout"}</Button>
             </div>
           </nav>
         )}
