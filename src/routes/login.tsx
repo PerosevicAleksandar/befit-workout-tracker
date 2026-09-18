@@ -8,7 +8,8 @@ import { authErrorMessage, ensureProfile } from "@/lib/auth";
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>) => ({
-    registered: search["registered"] === true || search["registered"] === "true",
+    registered:
+      search["registered"] === true || search["registered"] === "true" ? true : undefined,
   }),
   head: () => ({ meta: [
     { title: "Log In — BeFit" }, { name: "description", content: "Log in to your BeFit workout tracker." },

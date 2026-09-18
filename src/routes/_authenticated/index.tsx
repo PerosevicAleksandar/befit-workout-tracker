@@ -2,8 +2,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, Dumbbell, Plus, Timer } from "lucide-react";
 import { AppShell } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/")({
+  loader: async ({ context }) => {
+    const user = (context as { user?: { id: string; email?: string } }).user;
+    if (!user) return { username: "Athlete" };
+    const { data } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .maybeSingle();
+    return { username: data?.username ?? user.email?.split("@")[0] ?? "Athlete" };
+  },
   head: () => ({ meta: [
     { title: "Home — BeFit Workout Tracker" },
     { name: "description", content: "Stay consistent and keep track of every workout with BeFit." },
