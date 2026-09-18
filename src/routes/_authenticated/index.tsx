@@ -2,8 +2,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, Dumbbell, Plus, Timer } from "lucide-react";
 import { AppShell } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/")({
+  loader: async ({ context }) => {
+    const user = (context as { user?: { id: string; email?: string } }).user;
+    if (!user) return { username: "Athlete" };
+    const { data } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .maybeSingle();
+    return { username: data?.username ?? user.email?.split("@")[0] ?? "Athlete" };
+  },
   head: () => ({ meta: [
     { title: "Home — BeFit Workout Tracker" },
     { name: "description", content: "Stay consistent and keep track of every workout with BeFit." },
@@ -16,6 +27,7 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 function HomePage() {
+  const { username } = Route.useLoaderData();
   return (
     <AppShell>
       <div className="mx-auto max-w-6xl px-5 py-10 sm:py-14 lg:px-8">
@@ -23,7 +35,7 @@ function HomePage() {
           <div className="absolute right-0 top-0 hidden h-full w-2/5 items-center justify-center opacity-10 md:flex"><Dumbbell className="size-64" strokeWidth={1.2} /></div>
           <div className="relative max-w-2xl">
             <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase text-sport-muted"><span className="h-px w-8 bg-primary" />Today’s training</p>
-            <h1 className="font-display text-4xl font-extrabold leading-tight tracking-normal sm:text-5xl">Welcome back, Alex <span aria-hidden>👋</span></h1>
+            <h1 className="font-display text-4xl font-extrabold leading-tight tracking-normal sm:text-5xl">Welcome back, {username} <span aria-hidden>👋</span></h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-sport-muted sm:text-lg">Consistency beats intensity. Keep showing up, log the work, and let every session build on the last.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button size="lg" asChild><Link to="/add-workout"><Plus /> Add Workout</Link></Button>
