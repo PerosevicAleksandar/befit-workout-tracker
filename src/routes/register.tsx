@@ -72,7 +72,7 @@ function RegisterPage() {
           </p>
         )}
         <Field label="Username" htmlFor="username" required>
-          <input className="form-control" id="username" placeholder="Alex" required value={username} onChange={(e) => setUsername(e.target.value)} disabled={loading} />
+          <input className="form-control" id="username" placeholder="Enter your username" required value={username} onChange={(e) => setUsername(e.target.value)} disabled={loading} />
         </Field>
         <Field label="Email" htmlFor="email" required>
           <input className="form-control" id="email" type="email" placeholder="alex@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={loading} />

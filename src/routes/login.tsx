@@ -60,7 +60,7 @@ function LoginPage() {
           </p>
         )}
         <Field label="Email" htmlFor="email" required>
-          <input className="form-control" id="email" type="email" placeholder="alex@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={loading} />
+          <input className="form-control" id="email" type="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={loading} />
         </Field>
         <Field label="Password" htmlFor="password" required>
           <input className="form-control" id="password" type="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={loading} />
