@@ -14,6 +14,18 @@ const navItems = [
 export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleLogout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/login", search: {}, replace: true });
+  }
 
   useEffect(() => {
     const saved = window.localStorage.getItem("befit-theme");
