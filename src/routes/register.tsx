@@ -72,17 +72,17 @@ function RegisterPage() {
           </p>
         )}
         <Field label="Username" htmlFor="username" required>
-          <input className="form-control" id="username" placeholder="Alex" required value={username} onChange={(e) => setUsername(e.target.value)} disabled={loading} />
+          <input className="form-control" id="username" placeholder="Enter your username" required value={username} onChange={(e) => setUsername(e.target.value)} disabled={loading} />
         </Field>
         <Field label="Email" htmlFor="email" required>
-          <input className="form-control" id="email" type="email" placeholder="alex@example.com" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={loading} />
+          <input className="form-control" id="email" type="email" placeholder="Enter your email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={loading} />
         </Field>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Password" htmlFor="password" required>
-            <input className="form-control" id="password" type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={loading} />
+            <input className="form-control" id="password" type="password" placeholder="Enter your password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={loading} />
           </Field>
           <Field label="Confirm Password" htmlFor="confirm-password" required>
-            <input className="form-control" id="confirm-password" type="password" placeholder="Repeat password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} disabled={loading} />
+            <input className="form-control" id="confirm-password" type="password" placeholder="Confirm your password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} disabled={loading} />
           </Field>
         </div>
         <Button size="lg" className="mt-2 w-full" type="submit" disabled={loading}>
