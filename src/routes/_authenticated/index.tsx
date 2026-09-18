@@ -35,7 +35,7 @@ function HomePage() {
           <div className="absolute right-0 top-0 hidden h-full w-2/5 items-center justify-center opacity-10 md:flex"><Dumbbell className="size-64" strokeWidth={1.2} /></div>
           <div className="relative max-w-2xl">
             <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase text-sport-muted"><span className="h-px w-8 bg-primary" />Today’s training</p>
-            <h1 className="font-display text-4xl font-extrabold leading-tight tracking-normal sm:text-5xl">Welcome back, Alex <span aria-hidden>👋</span></h1>
+            <h1 className="font-display text-4xl font-extrabold leading-tight tracking-normal sm:text-5xl">Welcome back, {username} <span aria-hidden>👋</span></h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-sport-muted sm:text-lg">Consistency beats intensity. Keep showing up, log the work, and let every session build on the last.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button size="lg" asChild><Link to="/add-workout"><Plus /> Add Workout</Link></Button>
