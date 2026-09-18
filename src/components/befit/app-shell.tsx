@@ -1,8 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Dumbbell, Home, LogOut, Menu, Moon, Plus, Sun, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { to: "/" as const, label: "Home", icon: Home },
