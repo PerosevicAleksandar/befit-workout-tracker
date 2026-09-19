@@ -3,17 +3,24 @@ import { ArrowRight, CalendarDays, Dumbbell, Plus, Timer } from "lucide-react";
 import { AppShell } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { fetchWorkouts, formatWorkoutDate } from "@/data/workouts";
 
 export const Route = createFileRoute("/_authenticated/")({
   loader: async ({ context }) => {
     const user = (context as { user?: { id: string; email?: string } }).user;
-    if (!user) return { username: "Athlete" };
+    const workouts = await fetchWorkouts();
+    const last = workouts[0] ?? null;
+    if (!user) return { username: "Athlete", total: workouts.length, last };
     const { data } = await supabase
       .from("profiles")
       .select("username")
       .eq("id", user.id)
       .maybeSingle();
-    return { username: data?.username ?? user.email?.split("@")[0] ?? "Athlete" };
+    return {
+      username: data?.username ?? user.email?.split("@")[0] ?? "Athlete",
+      total: workouts.length,
+      last,
+    };
   },
   head: () => ({ meta: [
     { title: "Home — BeFit Workout Tracker" },
