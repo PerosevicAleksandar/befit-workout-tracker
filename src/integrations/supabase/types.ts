@@ -32,6 +32,39 @@ export type Database = {
         }
         Relationships: []
       }
+      workouts: {
+        Row: {
+          comment: string | null
+          created_at: string
+          date: string
+          duration: number
+          id: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          date: string
+          duration: number
+          id?: string
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          date?: string
+          duration?: number
+          id?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
