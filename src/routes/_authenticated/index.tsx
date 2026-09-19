@@ -3,17 +3,24 @@ import { ArrowRight, CalendarDays, Dumbbell, Plus, Timer } from "lucide-react";
 import { AppShell } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { fetchWorkouts, formatWorkoutDate } from "@/data/workouts";
 
 export const Route = createFileRoute("/_authenticated/")({
   loader: async ({ context }) => {
     const user = (context as { user?: { id: string; email?: string } }).user;
-    if (!user) return { username: "Athlete" };
+    const workouts = await fetchWorkouts();
+    const last = workouts[0] ?? null;
+    if (!user) return { username: "Athlete", total: workouts.length, last };
     const { data } = await supabase
       .from("profiles")
       .select("username")
       .eq("id", user.id)
       .maybeSingle();
-    return { username: data?.username ?? user.email?.split("@")[0] ?? "Athlete" };
+    return {
+      username: data?.username ?? user.email?.split("@")[0] ?? "Athlete",
+      total: workouts.length,
+      last,
+    };
   },
   head: () => ({ meta: [
     { title: "Home — BeFit Workout Tracker" },
@@ -27,7 +34,7 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 function HomePage() {
-  const { username } = Route.useLoaderData();
+  const { username, total, last } = Route.useLoaderData();
   return (
     <AppShell>
       <div className="mx-auto max-w-6xl px-5 py-10 sm:py-14 lg:px-8">
@@ -47,8 +54,8 @@ function HomePage() {
         <section className="mt-9" aria-labelledby="overview-heading">
           <div className="mb-4 flex items-end justify-between"><div><p className="text-xs font-bold uppercase text-primary">At a glance</p><h2 id="overview-heading" className="mt-1 font-display text-2xl font-extrabold">Your progress</h2></div><p className="hidden text-sm text-muted-foreground sm:block">Keep the streak alive.</p></div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <article className="rounded-lg border border-border bg-card p-6 text-card-foreground shadow-sm"><div className="mb-8 grid size-10 place-items-center rounded-md bg-accent text-primary"><Dumbbell className="size-5" /></div><p className="text-sm font-semibold text-muted-foreground">Total Workouts</p><p className="mt-1 font-display text-4xl font-extrabold">8</p></article>
-            <article className="rounded-lg border border-border bg-card p-6 text-card-foreground shadow-sm"><div className="mb-8 grid size-10 place-items-center rounded-md bg-accent text-primary"><CalendarDays className="size-5" /></div><p className="text-sm font-semibold text-muted-foreground">Last Workout</p><p className="mt-1 font-display text-2xl font-extrabold">Full Body</p><p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground"><Timer className="size-4" />55 minutes</p></article>
+            <article className="rounded-lg border border-border bg-card p-6 text-card-foreground shadow-sm"><div className="mb-8 grid size-10 place-items-center rounded-md bg-accent text-primary"><Dumbbell className="size-5" /></div><p className="text-sm font-semibold text-muted-foreground">Total Workouts</p><p className="mt-1 font-display text-4xl font-extrabold">{total}</p></article>
+            <article className="rounded-lg border border-border bg-card p-6 text-card-foreground shadow-sm"><div className="mb-8 grid size-10 place-items-center rounded-md bg-accent text-primary"><CalendarDays className="size-5" /></div><p className="text-sm font-semibold text-muted-foreground">Last Workout</p><p className="mt-1 font-display text-2xl font-extrabold">{last ? last.type : "No workouts yet"}</p><p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground"><Timer className="size-4" />{last ? `${last.duration} minutes · ${formatWorkoutDate(last.date)}` : "Log your first session"}</p></article>
           </div>
         </section>
       </div>
