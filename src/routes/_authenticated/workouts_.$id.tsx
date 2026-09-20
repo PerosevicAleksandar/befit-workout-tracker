@@ -11,7 +11,11 @@ export const Route = createFileRoute("/_authenticated/workouts_/$id")({
     { title: "Workout Details — BeFit" }, { name: "description", content: "Review the details of your BeFit workout." },
     { property: "og:title", content: "Workout Details — BeFit" }, { property: "og:description", content: "Review the details of your BeFit workout." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }), component: WorkoutDetailsPage,
+  ] }),
+  component: WorkoutDetailsPage,
+  pendingComponent: () => <AppShell><div className="mx-auto max-w-3xl px-5 py-10 sm:py-14 lg:px-8"><p className="text-sm font-semibold text-muted-foreground">Loading workout...</p></div></AppShell>,
+  errorComponent: ({ error }) => <AppShell><div className="mx-auto max-w-3xl px-5 py-10 sm:py-14 lg:px-8"><Link to="/workouts" className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"><ArrowLeft className="size-4" /> Back to My Workouts</Link><div className="rounded-lg border border-dashed border-border py-16 text-center"><h1 className="font-display text-xl font-extrabold">Could not load this workout</h1><p className="mt-2 text-muted-foreground">{error instanceof Error ? error.message : "Please try again."}</p></div></div></AppShell>,
+  notFoundComponent: () => <AppShell><div className="mx-auto max-w-3xl px-5 py-10 sm:py-14 lg:px-8"><Link to="/workouts" className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"><ArrowLeft className="size-4" /> Back to My Workouts</Link><div className="rounded-lg border border-dashed border-border py-16 text-center"><h1 className="font-display text-xl font-extrabold">Workout not found</h1></div></div></AppShell>,
 });
 
 function WorkoutDetailsPage() {
