@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, Dumbbell, Plus, Timer } from "lucide-react";
+import { HomeSkeleton } from "@/components/befit/skeletons";
 import { AppShell } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,6 +31,8 @@ export const Route = createFileRoute("/_authenticated/")({
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
+  pendingComponent: HomeSkeleton,
+  pendingMs: 0,
   component: HomePage,
 });
 
