@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { ArrowRight, Dumbbell, Plus, Trash2 } from "lucide-react";
+import { WorkoutsSkeleton } from "@/components/befit/skeletons";
 import { AppShell, PageHeader } from "@/components/befit/app-shell";
 import { Button } from "@/components/ui/button";
 import { deleteWorkout, fetchWorkouts, formatWorkoutDate, type Workout } from "@/data/workouts";
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/workouts")({
     { title: "My Workouts — BeFit" }, { name: "description", content: "Review your recent BeFit workout history." },
     { property: "og:title", content: "My Workouts — BeFit" }, { property: "og:description", content: "Review your recent BeFit workout history." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }), component: WorkoutsPage,
+  ] }), pendingComponent: WorkoutsSkeleton, pendingMs: 0, component: WorkoutsPage,
 });
 
 function useDeleteWorkout() {
